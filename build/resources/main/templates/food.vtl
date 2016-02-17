@@ -1,0 +1,25 @@
+#if($isAlive == false)
+<h1>$name is DEAD!</h1>
+#else
+<h1>Your Tamagotchi</h1>
+<h3>$name</h3>
+<p>Hunger Level: $hungerLevel</p>
+<p>Sleep Level: $sleepLevel</p>
+<p>Activity Level: $activityLevel</p>
+<form method="post" action="/food">
+  <input type="hidden" name="name" />
+  <button type="submit" class="btn">Feed $name</button>
+</form>
+<br>
+<form method="post" action="/activity">
+  <input type="hidden" name="name" />
+  <button type="submit" class="btn">Play with $name</button>
+</form>
+<br>
+<form method="post" action="/sleep">
+  <input type="hidden" name="name" />
+  <button type="submit" class="btn">Let $name rest</button>
+</form>
+<br>
+<a class="btn btn-success" href="/">Go Back</a>
+#end

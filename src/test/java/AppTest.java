@@ -11,30 +11,37 @@ import static org.fluentlenium.core.filter.FilterConstructor.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AppTest { //extends FluentTest
-  // public WebDriver webDriver = new HtmlUnitDriver();
-  //
-  // @Override
-  // public WebDriver getDefaultDriver() {
-  //     return webDriver;
-  // }
-  //
-  // @ClassRule
-  // public static ServerRule server = new ServerRule();
+public class AppTest extends FluentTest {
+  public WebDriver webDriver = new HtmlUnitDriver();
+
+  @Override
+  public WebDriver getDefaultDriver() {
+      return webDriver;
+  }
+
+  @ClassRule
+  public static ServerRule server = new ServerRule();
 //INTEGRATION TESTING
-  // @Test
-  // public void rootTest() {
-  //     goTo("http://localhost:4567/");
-  //     assertThat(pageSource()).contains("Task list!");
-  // }
-  //
-  // @Test
-  // public void taskIsCreatedTest() {
-  //   goTo("http://localhost:4567/");
-  //   fill("#description").with("Mow the lawn");
-  //   submit(".btn");
-  //   assertThat(pageSource()).contains("Your task has been saved.");
-  // }
+  @Test
+  public void rootTest() {
+      goTo("http://localhost:4567/");
+      assertThat(pageSource()).contains("Tamagotchi!");
+  }
+
+  @Test
+  public void tamagotchiIsCreatedTest() {
+    goTo("http://localhost:4567/");
+    fill("#name").with("Bob");
+    submit(".btn");
+    assertThat(pageSource()).contains("Bob");
+  }
+  @Test
+  public void makeSureVariablesAreWorking() {
+    goTo("http://localhost:4567/");
+    fill("#name").with("Bob");
+    submit(".btn");
+    assertThat(pageSource()).contains("Hunger Level: 10");
+  }
   //
   // @Test
   // public void taskIsDisplayedTest() {
@@ -66,5 +73,24 @@ public class AppTest { //extends FluentTest
     assertEquals(10, (int) myPet.getFoodLevel());
     assertEquals(10, (int) myPet.getSleepLevel());
     assertEquals(10, (int) myPet.getActivityLevel());
+  }
+
+  @Test
+public void isAlive_foodLevelAbove0_true() {
+  Tamagotchi myPet = new Tamagotchi("lil dragon");
+  assertEquals(true, myPet.isAlive());
+  }
+  @Test
+public void decreaseLevels_decreaseAllByOne_9() {
+  Tamagotchi myPet = new Tamagotchi("lil dragon");
+  myPet.decreaseLevels();
+  assertEquals(9, (int) myPet.getFoodLevel());
+  }
+  @Test
+public void addFoodLevel_addOneToFood_() {
+  Tamagotchi myPet = new Tamagotchi("lil dragon");
+  myPet.decreaseLevels();
+  myPet.addFoodLevel();
+  assertEquals(11, (int) myPet.getFoodLevel());
   }
 }
